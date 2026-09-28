@@ -1,1 +1,9 @@
-[]
+[
+    {
+        "animal_id": 1,
+        "name": "fgr",
+        "species": "dog",
+        "age": 1,
+        "status": "Available"
+    }
+]
