@@ -1,6 +1,8 @@
 from data_manager import load_animals, save_animals
 from shelter import Shelter
 
+DATA_FILE = "data/animals.json"
+
 
 def get_non_empty_input(prompt: str) -> str:
     """Get a non-empty string from the user."""
@@ -58,7 +60,7 @@ def add_animal(shelter: Shelter) -> None:
     age = get_valid_age()
 
     shelter.add_animal(name, species, age)
-    save_animals(shelter, "data/animals.json")
+    save_animals(shelter, DATA_FILE)
 
     print("Animal added successfully.")
 
@@ -89,7 +91,7 @@ def update_animal(shelter: Shelter) -> None:
         new_age = get_valid_age()
         animal.age = new_age
 
-        save_animals(shelter, "data/animals.json")
+        save_animals(shelter, DATA_FILE)
 
         print("Animal updated successfully.")
         animal.display_info()
@@ -102,7 +104,7 @@ def delete_animal(shelter: Shelter) -> None:
     animal_id = get_valid_animal_id()
 
     if shelter.delete_animal(animal_id):
-        save_animals(shelter, "data/animals.json")
+        save_animals(shelter, DATA_FILE)
         print("Animal deleted successfully.")
     else:
         print("Animal not found.")
@@ -118,7 +120,7 @@ def adopt_animal(shelter: Shelter) -> None:
             print("Animal is already adopted.")
         else:
             animal.status = "Adopted"
-            save_animals(shelter, "data/animals.json")
+            save_animals(shelter, DATA_FILE)
             print("Animal adopted successfully.")
     else:
         print("Animal not found.")
@@ -141,7 +143,7 @@ def show_animals_by_status(shelter: Shelter) -> None:
 def main() -> None:
     """Run the animal shelter application."""
     shelter = Shelter()
-    load_animals(shelter, "data/animals.json")
+    load_animals(shelter, DATA_FILE)
 
     while True:
         print("\n1. Add animal")
