@@ -9,10 +9,12 @@ class Shelter:
         self.animals: list[Animal] = []
         self.next_id: int = 1
 
-    def add_animal(self, animal: Animal) -> None:
-        """Add an animal to the shelter."""
+    def add_animal(self, name: str, species: str, age: int) -> Animal:
+        """Create and add an animal to the shelter."""
+        animal = Animal(self.next_id, name, species, age)
         self.animals.append(animal)
         self.next_id += 1
+        return animal
 
     def find_animal(self, animal_id: int) -> Animal | None:
         """Find an animal by its ID."""

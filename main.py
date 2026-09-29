@@ -1,4 +1,3 @@
-from animal import Animal
 from data_manager import load_animals, save_animals
 from shelter import Shelter
 
@@ -58,10 +57,8 @@ def add_animal(shelter: Shelter) -> None:
     species = get_non_empty_input("Species: ")
     age = get_valid_age()
 
-    animal = Animal(shelter.next_id, name, species, age)
-
-    shelter.add_animal(animal)
-    save_animals(shelter)
+    shelter.add_animal(name, species, age)
+    save_animals(shelter, "data/animals.json")
 
     print("Animal added successfully.")
 
@@ -92,7 +89,7 @@ def update_animal(shelter: Shelter) -> None:
         new_age = get_valid_age()
         animal.age = new_age
 
-        save_animals(shelter)
+        save_animals(shelter, "data/animals.json")
 
         print("Animal updated successfully.")
         animal.display_info()
@@ -105,7 +102,7 @@ def delete_animal(shelter: Shelter) -> None:
     animal_id = get_valid_animal_id()
 
     if shelter.delete_animal(animal_id):
-        save_animals(shelter)
+        save_animals(shelter, "data/animals.json")
         print("Animal deleted successfully.")
     else:
         print("Animal not found.")
@@ -121,7 +118,7 @@ def adopt_animal(shelter: Shelter) -> None:
             print("Animal is already adopted.")
         else:
             animal.status = "Adopted"
-            save_animals(shelter)
+            save_animals(shelter, "data/animals.json")
             print("Animal adopted successfully.")
     else:
         print("Animal not found.")
@@ -144,7 +141,7 @@ def show_animals_by_status(shelter: Shelter) -> None:
 def main() -> None:
     """Run the animal shelter application."""
     shelter = Shelter()
-    load_animals(shelter)
+    load_animals(shelter, "data/animals.json")
 
     while True:
         print("\n1. Add animal")
