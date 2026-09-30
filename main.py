@@ -116,12 +116,12 @@ def adopt_animal(shelter: Shelter) -> None:
     animal = shelter.find_animal(animal_id)
 
     if animal:
-        if animal.status == "Adopted":
-            print("Animal is already adopted.")
-        else:
-            animal.status = "Adopted"
+        try:
+            animal.adopt()
             save_animals(shelter, DATA_FILE)
             print("Animal adopted successfully.")
+        except ValueError as error:
+            print(error)
     else:
         print("Animal not found.")
 
