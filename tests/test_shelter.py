@@ -80,3 +80,16 @@ def test_multiple_animals_get_unique_ids():
     assert animal1.animal_id == 1
     assert animal2.animal_id == 2
     assert animal3.animal_id == 3
+
+
+def test_add_animal_after_delete_keeps_next_id():
+    shelter = Shelter()
+
+    first_animal = shelter.add_animal("Max", "Dog", 3)
+    shelter.add_animal("Lucy", "Cat", 2)
+
+    shelter.delete_animal(first_animal.animal_id)
+
+    new_animal = shelter.add_animal("Rocky", "Dog", 4)
+
+    assert new_animal.animal_id == 3

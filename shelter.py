@@ -1,8 +1,10 @@
+"""Manage animals in the shelter."""
+
 from animal import Animal
 
 
 class Shelter:
-    """Manage animals in the shelter."""
+    """Manage animals stored in the shelter."""
 
     def __init__(self) -> None:
         """Initialize an empty shelter."""
@@ -25,7 +27,7 @@ class Shelter:
         return None
 
     def delete_animal(self, animal_id: int) -> bool:
-        """Delete an animal by its ID."""
+        """Delete an animal by ID."""
         animal = self.find_animal(animal_id)
 
         if animal:

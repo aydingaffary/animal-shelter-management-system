@@ -33,6 +33,7 @@ from main import (
     get_valid_status,
 )
 
+
 def test_get_valid_age(monkeypatch):
     inputs = iter(["5"])
 
@@ -102,6 +103,7 @@ def test_get_valid_animal_id(monkeypatch):
 
     assert result == 12
 
+
 def test_get_valid_animal_id_retries_after_invalid_input(monkeypatch):
     inputs = iter(["abc", "12"])
 
@@ -111,6 +113,7 @@ def test_get_valid_animal_id_retries_after_invalid_input(monkeypatch):
 
     assert result == 12
 
+
 def test_get_valid_status(monkeypatch):
     inputs = iter(["available"])
 
@@ -119,6 +122,8 @@ def test_get_valid_status(monkeypatch):
     result = get_valid_status()
 
     assert result == "Available"
+
+
 def test_get_valid_status_retries_after_invalid_input(monkeypatch):
     inputs = iter(["Pending", "Adopted"])
 
@@ -127,6 +132,8 @@ def test_get_valid_status_retries_after_invalid_input(monkeypatch):
     result = get_valid_status()
 
     assert result == "Adopted"
+
+
 def test_add_animal(monkeypatch, tmp_path):
     inputs = iter(["Max", "Dog", "3"])
 
@@ -144,6 +151,8 @@ def test_add_animal(monkeypatch, tmp_path):
     assert animal.name == "Max"
     assert animal.species == "Dog"
     assert animal.age == 3
+
+
 def test_add_animal_saves_to_file(monkeypatch, tmp_path):
     inputs = iter(["Lucy", "Cat", "2"])
 
@@ -169,6 +178,8 @@ def test_add_animal_saves_to_file(monkeypatch, tmp_path):
             "status": "Available",
         }
     ]
+
+
 def test_adopt_animal(monkeypatch, tmp_path):
     shelter = Shelter()
     animal = shelter.add_animal("Max", "Dog", 3)
@@ -179,6 +190,7 @@ def test_adopt_animal(monkeypatch, tmp_path):
     adopt_animal(shelter)
 
     assert animal.status == "Adopted"
+
 
 def test_adopt_already_adopted_animal(monkeypatch, tmp_path, capsys):
     shelter = Shelter()
@@ -200,6 +212,8 @@ def test_adopt_already_adopted_animal(monkeypatch, tmp_path, capsys):
 
     assert animal.status == "Adopted"
     assert "already adopted" in captured.out
+
+
 def test_update_animal(monkeypatch, tmp_path):
     inputs = iter(["1", "Charlie", "Cat", "5"])
 
@@ -225,6 +239,8 @@ def test_update_animal(monkeypatch, tmp_path):
     assert animal.name == "Charlie"
     assert animal.species == "Cat"
     assert animal.age == 5
+
+
 def test_update_animal_not_found(monkeypatch, capsys):
     inputs = iter(["999"])
 
@@ -242,6 +258,8 @@ def test_update_animal_not_found(monkeypatch, capsys):
     captured = capsys.readouterr()
 
     assert "Animal not found." in captured.out
+
+
 def test_update_animal_saves_to_file(monkeypatch, tmp_path):
     inputs = iter(["1", "Charlie", "Cat", "5"])
 
@@ -271,6 +289,8 @@ def test_update_animal_saves_to_file(monkeypatch, tmp_path):
             "status": "Available",
         }
     ]
+
+
 def test_delete_animal(monkeypatch, tmp_path):
     inputs = iter(["1"])
 
@@ -291,6 +311,8 @@ def test_delete_animal(monkeypatch, tmp_path):
     delete_animal(shelter)
 
     assert shelter.find_animal(1) is None
+
+
 def test_delete_animal_not_found(monkeypatch, capsys):
     inputs = iter(["999"])
 

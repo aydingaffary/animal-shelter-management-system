@@ -1,6 +1,12 @@
+"""Handle loading and saving animal data."""
+
 import json
 
+import pytest
+
 from data_manager import load_animals, save_animals
+
+
 from shelter import Shelter
 
 
@@ -54,3 +60,39 @@ def test_load_animals(tmp_path):
     assert loaded_lucy.status == "Adopted"
 
     assert new_shelter.next_id == 3
+
+
+def test_load_animals_invalid_status(tmp_path):
+    shelter = Shelter()
+
+    file_path = tmp_path / "animals.json"
+
+    data = [
+        {
+            "animal_id": 1,
+            "name": "Max",
+            "species": "Dog",
+            "age": 3,
+            "status": "Invalid",
+        }
+    ]
+
+    with open(file_path, "w", encoding="utf-8") as file:
+        json.dump(data, file)
+
+    with pytest.raises(ValueError, match="Invalid animal status."):
+        load_animals(shelter, file_path)
+
+
+def test_load_animals_empty_file(tmp_path):
+    shelter = Shelter()
+
+    file_path = tmp_path / "animals.json"
+
+    with open(file_path, "w", encoding="utf-8") as file:
+        json.dump([], file)
+
+    load_animals(shelter, file_path)
+
+    assert shelter.animals == []
+    assert shelter.next_id == 1

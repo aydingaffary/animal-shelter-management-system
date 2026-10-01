@@ -1,3 +1,5 @@
+"""Run the animal shelter management application."""
+
 from data_manager import load_animals, save_animals
 from shelter import Shelter
 

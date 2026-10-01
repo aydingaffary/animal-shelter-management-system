@@ -1,8 +1,10 @@
+"""Handle loading and saving animal data."""
+
 import json
+from pathlib import Path
 
 from animal import Animal
 from shelter import Shelter
-from pathlib import Path
 
 
 def load_animals(shelter: Shelter, file_path: str | Path) -> None:
@@ -18,7 +20,7 @@ def load_animals(shelter: Shelter, file_path: str | Path) -> None:
             item["age"],
         )
 
-        animal.status = item["status"]
+        animal.set_status(item["status"])
         shelter.animals.append(animal)
 
     if shelter.animals:
